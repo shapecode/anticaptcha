@@ -1,0 +1,43 @@
+{
+    "name": "shapecode/anticaptcha",
+    "description": "PHP Client for anti-captcha.com",
+    "keywords": [
+        "anti-captcha.com",
+        "captcha",
+        "anticaptcha"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/shapecode/anticaptcha",
+    "support": {
+        "email": "git@shapecode.de",
+        "issues": "https://github.com/shapecode/anticaptcha/issues",
+        "source": "https://github.com/shapecode/anticaptcha/releases",
+        "wiki": "https://github.com/shapecode/anticaptcha/wiki"
+    },
+    "authors": [
+        {
+            "name": "Shapecode",
+            "homepage": "https://shapecode.de",
+            "email": "git@shapecode.de"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "ext-json": "*",
+
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shapecode\\AntiCaptcha\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
