@@ -31,9 +31,7 @@ class AntiCaptcha implements AntiCaptchaInterface
     }
 
     /**
-     * @param CaptchaInterface $captcha
-     *
-     * @return bool|Task
+     * @inheritdoc
      */
     public function createTask(CaptchaInterface $captcha)
     {
@@ -55,13 +53,9 @@ class AntiCaptcha implements AntiCaptchaInterface
     }
 
     /**
-     * @param Task $task
-     * @param int  $maxSeconds
-     * @param int  $currentSecond
-     *
-     * @return bool|Result
+     * @inheritdoc
      */
-    public function getResult(Task $task)
+    public function getResult(Task $task, $wait = 60)
     {
         $data = [
             'taskId' => $task->getId()
@@ -71,22 +65,24 @@ class AntiCaptcha implements AntiCaptchaInterface
         $now = new \DateTime();
 
         do {
-            $postResult = $this->client->request('getTaskResult', $data);
+            $result = $this->client->request('getTaskResult', $data);
 
-            if ($postResult !== false) {
-                if ($postResult->errorId === 0 && $postResult->status === 'ready') {
-                    return new Result($task, $postResult);
+            if ($result !== false) {
+                if ($result->errorId === 0 && $result->status === 'ready') {
+                    return new Result($task, $result);
                 }
 
-                $this->errorMessage = $postResult->errorDescription;
+                if ($result->errorId !== 0) {
+                    $this->errorMessage = $result->errorDescription;
 
-                return false;
+                    return false;
+                }
             }
 
             $current = new \DateTime();
             $seconds = $current->getTimestamp() - $now->getTimestamp();
 
-            if ($seconds > 60) {
+            if ($seconds > $wait) {
                 $run = false;
             }
 
@@ -97,7 +93,7 @@ class AntiCaptcha implements AntiCaptchaInterface
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     public function getBalance()
     {
