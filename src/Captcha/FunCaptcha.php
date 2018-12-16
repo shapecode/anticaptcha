@@ -75,4 +75,20 @@ class FunCaptcha implements CaptchaInterface
         return $data;
     }
 
+    /**
+     * @param null $proxyLogin
+     */
+    public function setProxyLogin($proxyLogin)
+    {
+        $this->proxyLogin = $proxyLogin;
+    }
+
+    /**
+     * @param null $proxyPassword
+     */
+    public function setProxyPassword($proxyPassword)
+    {
+        $this->proxyPassword = $proxyPassword;
+    }
+
 }

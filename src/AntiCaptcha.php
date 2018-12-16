@@ -57,6 +57,8 @@ class AntiCaptcha implements AntiCaptchaInterface
      */
     public function getResult(Task $task, $wait = 60)
     {
+        ini_set('max_execution_time', $wait + 10);
+
         $data = [
             'taskId' => $task->getId()
         ];
