@@ -24,11 +24,18 @@ interface AntiCaptchaInterface
 
     /**
      * @param Task $task
+     *
+     * @return bool|Result
+     */
+    public function getResult(Task $task);
+
+    /**
+     * @param Task $task
      * @param int  $wait
      *
      * @return bool|Result
      */
-    public function getResult(Task $task, $wait = 60);
+    public function getResultWithWait(Task $task, $wait = 60);
 
     /**
      * @return bool

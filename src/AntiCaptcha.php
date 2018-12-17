@@ -53,9 +53,24 @@ class AntiCaptcha implements AntiCaptchaInterface
     }
 
     /**
+     * @param Task $task
+     *
+     * @return bool|Result
+     */
+    public function getResult(Task $task)
+    {
+        $data = [
+            'taskId' => $task->getId()
+        ];
+
+        $result = $this->client->request('getTaskResult', $data);
+        return new Result($task, $result);
+    }
+
+    /**
      * @inheritdoc
      */
-    public function getResult(Task $task, $wait = 60)
+    public function getResultWithWait(Task $task, $wait = 60)
     {
         ini_set('max_execution_time', $wait + 10);
 
@@ -77,7 +92,7 @@ class AntiCaptcha implements AntiCaptchaInterface
                 if ($result->errorId !== 0) {
                     $this->errorMessage = $result->errorDescription;
 
-                    return false;
+                    return new Result($task, $result);
                 }
             }
 
