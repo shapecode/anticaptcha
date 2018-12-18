@@ -64,6 +64,7 @@ class AntiCaptcha implements AntiCaptchaInterface
         ];
 
         $result = $this->client->request('getTaskResult', $data);
+
         return new Result($task, $result);
     }
 
@@ -74,25 +75,22 @@ class AntiCaptcha implements AntiCaptchaInterface
     {
         ini_set('max_execution_time', $wait + 10);
 
-        $data = [
-            'taskId' => $task->getId()
-        ];
-
         $run = true;
         $now = new \DateTime();
 
         do {
-            $result = $this->client->request('getTaskResult', $data);
+            $result = $this->getResult($task);
+            $data = $result->getData();
 
             if ($result !== false) {
-                if ($result->errorId === 0 && $result->status === 'ready') {
-                    return new Result($task, $result);
+                if ($data->errorId === 0 && $data->status === 'ready') {
+                    return $result;
                 }
 
-                if ($result->errorId !== 0) {
-                    $this->errorMessage = $result->errorDescription;
+                if ($data->errorId !== 0) {
+                    $this->errorMessage = $data->errorDescription;
 
-                    return new Result($task, $result);
+                    return $result;
                 }
             }
 
