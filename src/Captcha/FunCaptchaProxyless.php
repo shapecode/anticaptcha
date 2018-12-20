@@ -8,7 +8,7 @@ namespace Shapecode\AntiCaptcha\Captcha;
  * @package Shapecode\AntiCaptcha\Captcha
  * @author  Nikita Loges
  */
-class FunCaptcha extends AbstractProxyCaptcha
+class FunCaptchaProxyless extends AbstractCaptcha
 {
 
     /**

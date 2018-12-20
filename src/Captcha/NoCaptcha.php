@@ -3,12 +3,12 @@
 namespace Shapecode\AntiCaptcha\Captcha;
 
 /**
- * Class FunCaptcha
+ * Class NoCaptcha
  *
  * @package Shapecode\AntiCaptcha\Captcha
  * @author  Nikita Loges
  */
-class FunCaptcha extends AbstractProxyCaptcha
+class NoCaptcha extends AbstractProxyCaptcha
 {
 
     /**
@@ -16,7 +16,6 @@ class FunCaptcha extends AbstractProxyCaptcha
      */
     protected function getType()
     {
-        return 'FunCaptchaTask';
+        return 'NoCaptchaTask';
     }
-
 }
