@@ -18,15 +18,20 @@ class Client implements ClientInterface
     /** @var string */
     protected $clientKey;
 
+    /** @var string */
+    protected $userAgent;
+
     /** @var Guzzle */
     protected $guzzle;
 
     /**
-     * @param string $clientKey
+     * @param $clientKey
+     * @param $userAgent
      */
-    public function __construct($clientKey)
+    public function __construct($clientKey, $userAgent = null)
     {
         $this->clientKey = $clientKey;
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -56,6 +61,7 @@ class Client implements ClientInterface
                 'headers'  => [
                     'Content-Type' => 'application/json; charset=utf-8',
                     'Accept'       => 'application/json',
+                    'User-Agent'   => $this->getUserAgent(),
                 ]
             ]);
 
@@ -63,5 +69,17 @@ class Client implements ClientInterface
         }
 
         return $this->guzzle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        if ($this->userAgent === null) {
+            return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36';
+        }
+
+        return $this->userAgent;
     }
 }

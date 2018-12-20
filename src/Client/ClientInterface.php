@@ -18,4 +18,9 @@ interface ClientInterface
      * @return mixed
      */
     public function request($name, array $data = []);
+
+    /**
+     * @return string
+     */
+    public function getUserAgent();
 }

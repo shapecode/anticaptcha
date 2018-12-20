@@ -32,7 +32,7 @@ class FunCaptcha implements CaptchaInterface
      * @param string $userAgent
      * @param string $cookies
      */
-    public function __construct($websiteUrl, $websitePublicKey, $proxyType, $proxyAddress, $proxyPort, $userAgent, $proxyLogin = null, $proxyPassword = null, $cookies = null)
+    public function __construct($websiteUrl, $websitePublicKey, $proxyType, $proxyAddress, $proxyPort, $userAgent = null, $proxyLogin = null, $proxyPassword = null, $cookies = null)
     {
         $this->websiteUrl = $websiteUrl;
         $this->websitePublicKey = $websitePublicKey;
@@ -56,9 +56,12 @@ class FunCaptcha implements CaptchaInterface
             'websitePublicKey' => $this->websitePublicKey,
             'proxyType'        => $this->proxyType,
             'proxyAddress'     => $this->proxyAddress,
-            'proxyPort'        => $this->proxyPort,
-            'userAgent'        => $this->userAgent,
+            'proxyPort'        => $this->proxyPort
         ];
+
+        if ($this->userAgent !== null) {
+            $data['userAgent'] = $this->userAgent;
+        }
 
         if ($this->proxyLogin !== null) {
             $data['proxyLogin'] = $this->proxyLogin;
@@ -73,6 +76,14 @@ class FunCaptcha implements CaptchaInterface
         }
 
         return $data;
+    }
+
+    /**
+     * @param string|null $userAgent
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
     }
 
     /**

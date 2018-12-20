@@ -35,6 +35,12 @@ class AntiCaptcha implements AntiCaptchaInterface
      */
     public function createTask(CaptchaInterface $captcha)
     {
+        $taskConfig = $captcha->getPostData();
+
+        if (!isset($taskConfig['userAgent'])) {
+            $taskConfig['userAgent'] = $this->client->getUserAgent();
+        }
+
         $submitResult = $this->client->request('createTask', [
             'task' => $captcha->getPostData()
         ]);
