@@ -42,7 +42,7 @@ class AntiCaptcha implements AntiCaptchaInterface
         }
 
         $submitResult = $this->client->request('createTask', [
-            'task' => $captcha->getPostData()
+            'task' => $taskConfig
         ]);
 
         if ($submitResult === false) {

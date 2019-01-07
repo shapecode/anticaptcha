@@ -33,9 +33,9 @@ abstract class AbstractCaptcha implements CaptchaInterface
     public function getPostData()
     {
         $data = [
-            'type'       => $this->getType(),
-            'websiteURL' => $this->websiteUrl,
-            'websiteKey' => $this->websitePublicKey,
+            'type'             => $this->getType(),
+            'websiteURL'       => $this->websiteUrl,
+            'websitePublicKey' => $this->websitePublicKey,
         ];
 
         return $data;
