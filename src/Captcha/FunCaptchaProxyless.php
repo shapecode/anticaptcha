@@ -16,7 +16,7 @@ class FunCaptchaProxyless extends AbstractCaptcha
      */
     protected function getType()
     {
-        return 'FunCaptchaTask';
+        return 'FunCaptchaTaskProxyless';
     }
 
 }
